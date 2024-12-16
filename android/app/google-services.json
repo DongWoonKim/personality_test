@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "964558604793",
+    "project_id": "example-af66b",
+    "storage_bucket": "example-af66b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:964558604793:android:eafe071405f7e1560c9528",
+        "android_client_info": {
+          "package_name": "com.example.personality_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAYAdeGtJ5JG8tBaMyoXKvE6Lw15qivCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
