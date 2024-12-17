@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:personality_test/detail/detail_page.dart';
 
 class QuestionPage extends StatefulWidget {
   final String question;
@@ -93,6 +94,13 @@ class _QuestionPage extends State<QuestionPage> {
                   : ElevatedButton(
                     onPressed: () {
                       // 결과 페이지로 이동하기
+                      Navigator.of(context)
+                          .pushReplacement(MaterialPageRoute(builder: (context) {
+                          return DetailPage(
+                              answer: questions['answer'][selectNumber],
+                              question: questions['question']
+                          );
+                      }));
                     },
                     child: const Text('성격 보기')
                 )
