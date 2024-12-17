@@ -3,6 +3,9 @@ import 'package:flutter/services.dart';
 import 'dart:convert';
 import '../sub/question_page.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_remote_config/firebase_remote_config.dart';
+
+final FirebaseRemoteConfig remoteConfig = FirebaseRemoteConfig.instance;
 
 class MainPage extends StatefulWidget {
 
@@ -17,13 +20,35 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPage extends State<MainPage> {
+  String welcomeTitle = '';
+  bool bannerUse = false;
+  int itemHeight = 50;
+
+  @override
+  void initState() {
+    super.initState();
+    remoteConfigInit();
+  }
+
   Future<String> loadAsset() async {
     return await rootBundle.loadString('res/api/list.json');
+  }
+
+  void remoteConfigInit() async {
+    await remoteConfig.fetchAndActivate();
+    welcomeTitle = remoteConfig.getString("welcome");
+    bannerUse    = remoteConfig.getBool("banner");
+    itemHeight   = remoteConfig.getInt("item_height");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: bannerUse
+        ? AppBar(
+          title: Text(welcomeTitle),
+        )
+        : null,
       body: FutureBuilder(
         future: loadAsset(),
         builder: (context, snapshot) {
@@ -37,7 +62,7 @@ class _MainPage extends State<MainPage> {
               return ListView.builder(itemBuilder: (context, value) {
                 return InkWell(
                   child: SizedBox(
-                    height: 50,
+                    height: itemHeight.toDouble(),
                     child: Card(
                       child: Text(list['questions'][value]['title'].toString()),
                     ),
