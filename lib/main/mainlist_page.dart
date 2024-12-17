@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
 import '../sub/question_page.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class MainPage extends StatefulWidget {
 
@@ -41,12 +42,20 @@ class _MainPage extends State<MainPage> {
                       child: Text(list['questions'][value]['title'].toString()),
                     ),
                   ),
-                  onTap: () async{
-                    Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                        return QuestionPage(question: list['questions'][value]['file'].toString());
+                  onTap: () async {
+                    await FirebaseAnalytics.instance.logEvent(
+                      name: "test_click",
+                      parameters: {
+                        "test_name": list['questions'][value]['title'].toString(),
                       }
-                    ));
+                    ).then((result) {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                            return QuestionPage(question: list['questions'][value]['file'].toString());
+                          }
+                      ));
+                    });
+
                   },
                 );
               },
