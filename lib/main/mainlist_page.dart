@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
-import '../sub/questionPage.dart';
+import '../sub/question_page.dart';
 
 class MainPage extends StatefulWidget {
 
