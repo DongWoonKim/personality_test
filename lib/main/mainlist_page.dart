@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
+import '../sub/questionPage.dart';
 
 class MainPage extends StatefulWidget {
 
@@ -40,7 +41,13 @@ class _MainPage extends State<MainPage> {
                       child: Text(list['questions'][value]['title'].toString()),
                     ),
                   ),
-                  onTap: (){},
+                  onTap: () async{
+                    Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                        return QuestionPage(question: list['questions'][value]['file'].toString());
+                      }
+                    ));
+                  },
                 );
               },
               itemCount: list['count'],
